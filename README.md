@@ -11,10 +11,17 @@ Note the file structure below (which I'm applying to my project), as I have not 
 
 1. app.js: My index router is called here.
 2. routes/index.js: Defined routes for Admin & User product.
-3. controllers/admin/Product.js: Contains all the API's for Admin-Product.
-4. controllers/Product.js: Contains all the API's for Seller & Buyer Product.
-5. controllers/Validate.js: Contains validations for Add / Edit Admin & Seller Products.
-6. controllers/services/product.service.js: Contains service for Product (to be used within API's).
-7. swagger.json: API Documentation is achieved via Swagger.
+3. models/SellerProduct.model.js & models/Product.model.js: Defines the model structure according to Custom-Cat API's.
+4. controllers/admin/Product.js: Contains all the API's for Admin-Product.
+5. controllers/Product.js: Contains all the API's for Seller & Buyer Product.
+6. controllers/Validate.js: Contains validations for Add / Edit Admin & Seller Products.
+7. controllers/services/product.service.js: Contains service for Product (to be used within API's).
+8. swagger.json: API Documentation is achieved via Swagger.
+
+IDE: VSCode
+DB: MongoDB
+Language: JS
+Platform: Node
+Framework: Express
 
 Thank you.
