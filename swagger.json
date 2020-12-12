@@ -1,0 +1,2040 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "USA School API's",
+        "version": "1.0.0"
+    },
+    "basePath": "/api",
+    "paths": {
+        "/auth/register": {
+            "post": {
+                "tags": [
+                    "Authorization"
+                ],
+                "summary": "Register a new user.",
+                "description": "Register User",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "User that should be stored",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Register"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Register"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/verify-email": {
+            "post": {
+                "tags": [
+                    "Authorization"
+                ],
+                "summary": "Verify user login request by email.",
+                "description": "verify email",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "User that should be verified",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/VerifyEmail"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "Authorization"
+                ],
+                "summary": "Login a user.",
+                "description": "Login User",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "User that should be stored",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Login"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Login"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/image/profile-image/upload": {
+            "post": {
+                "tags": [
+                    "Authorization"
+                ],
+                "summary": "Upload user profile image.",
+                "description": "upload image",
+                "produces": [
+                    "application/json"
+                ],
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "User Auth Token{ ABC123 }",
+                        "required": true,
+                        "type": "string",
+                        "default": "ABC123"
+                    },
+                    {
+                        "name": "image",
+                        "in": "formData",
+                        "description": "Profile image to be uploaded",
+                        "required": false,
+                        "type": "file",
+                        "schema": {
+                            "$ref": "#/definitions/Profile_Image"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "get": {
+                "tags": [
+                    "Authorization"
+                ],
+                "summary": "Logout a user.",
+                "description": "logout user.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "User Auth Token{ ABC123 }",
+                        "required": true,
+                        "type": "string",
+                        "default": "ABC123"
+                    },
+                    {
+                        "name": "gcm_id",
+                        "in": "query",
+                        "description": "User gcm id",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "description": "Log the user out (Invalidate the token).",
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "description": "Log the user out (Invalidate the token).",
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/password/forget": {
+            "post": {
+                "tags": [
+                    "Passwords"
+                ],
+                "summary": "Forget password request.",
+                "description": "Forgot password",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "User email",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/password/reset/{token}": {
+            "post": {
+                "tags": [
+                    "Passwords"
+                ],
+                "summary": "Reset password.",
+                "description": "Reset password.",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "path",
+                        "description": "token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Password reset",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Password"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/custom-cat/catalog": {
+            "get": {
+                "tags": [
+                    "Admin-Product"
+                ],
+                "summary": "Get a listing of all the Products.",
+                "description": "Get all Products",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "User Auth Token{ ABC123 }",
+                        "required": true,
+                        "type": "string",
+                        "default": "ABC123"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Page records limit",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/custom-cat/catalog-product/{catalogId}": {
+            "get": {
+                "tags": [
+                    "Admin-Product"
+                ],
+                "summary": "Get a listing of all the Catalog Products.",
+                "description": "Get all Catalog Products",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "User Auth Token{ ABC123 }",
+                        "required": true,
+                        "type": "string",
+                        "default": "ABC123"
+                    },
+                    {
+                        "name": "catalogId",
+                        "in": "path",
+                        "description": "id of Catalog",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/custom-cat/catalog-sku-products/{skuId}": {
+            "get": {
+                "tags": [
+                    "Admin-Product"
+                ],
+                "summary": "Get a listing of all the Products by SKU.",
+                "description": "Get all Products",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "User Auth Token{ ABC123 }",
+                        "required": true,
+                        "type": "string",
+                        "default": "ABC123"
+                    },
+                    {
+                        "name": "skuId",
+                        "in": "path",
+                        "description": "id of Sku",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/custom-cat/all-products": {
+            "get": {
+                "tags": [
+                    "Admin-Product"
+                ],
+                "summary": "Get a listing of all the Products.",
+                "description": "Get all Products",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "User Auth Token{  ABC123 }",
+                        "required": true,
+                        "type": "string",
+                        "default": " ABC123"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Page records limit",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/getAdminProducts": {
+            "get": {
+                "tags": [
+                    "Admin-Product"
+                ],
+                "summary": "Get a listing of all the Products.",
+                "description": "Get all Products",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "User Auth Token{ ABC123 }",
+                        "required": true,
+                        "type": "string",
+                        "default": "ABC123"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Page records limit",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "store",
+                        "in": "query",
+                        "description": "ID of store",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Product"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/getSellerProducts": {
+            "get": {
+                "tags": [
+                    "Admin-Product"
+                ],
+                "summary": "Get a listing of all the Products.",
+                "description": "Get all Products",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "User Auth Token{ ABC123 }",
+                        "required": true,
+                        "type": "string",
+                        "default": "ABC123"
+                    },
+                    {
+                        "name": "store",
+                        "in": "query",
+                        "description": "ID of store",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "seller",
+                        "in": "query",
+                        "description": "User ID of seller",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Page records limit",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Product"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/get/{productId}": {
+            "get": {
+                "tags": [
+                    "Admin-Product"
+                ],
+                "summary": "Get one Product.",
+                "description": "Get one Product",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "User Auth Token{ ABC123 }",
+                        "required": true,
+                        "type": "string",
+                        "default": "ABC123"
+                    },
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "description": "id of Product",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Product"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/getByCategory/{categoryId}": {
+            "get": {
+                "tags": [
+                    "Admin-Product"
+                ],
+                "summary": "Get one Product by Category ID.",
+                "description": "Get one Product by Category ID",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "User Auth Token{ ABC123 }",
+                        "required": true,
+                        "type": "string",
+                        "default": "ABC123"
+                    },
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "description": "id of Category",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Status of products; 1=System Products, 2=Seller Products",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Product"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/create": {
+            "post": {
+                "tags": [
+                    "Admin-Product"
+                ],
+                "summary": "Store a newly created Product in storage",
+                "description": "Product",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "User Auth Token{ ABC123 }",
+                        "required": true,
+                        "type": "string",
+                        "default": "ABC123"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Product that should be stored",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Product"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Product"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/image/product/upload": {
+            "post": {
+                "tags": [
+                    "Product-Images (Admin & Seller)"
+                ],
+                "summary": "Upload the specified Product in storage",
+                "description": "Upload Product",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "User Auth Token{ ABC123 }",
+                        "required": true,
+                        "type": "string",
+                        "default": "ABC123"
+                    },
+                    {
+                        "name": "alternative_text",
+                        "in": "query",
+                        "description": "alternative text",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "image",
+                        "in": "formData",
+                        "description": "product image to be uploaded",
+                        "required": false,
+                        "type": "file",
+                        "schema": {
+                            "$ref": "#/definitions/Product_Image"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Product_Image"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/image/product/delete/{imageId}": {
+            "delete": {
+                "tags": [
+                    "Product-Images (Admin & Seller)"
+                ],
+                "summary": "Delete the specified Product Image in storage with image ID",
+                "description": "Delete Product Image ",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "User Auth Token{ ABC123 }",
+                        "required": true,
+                        "type": "string",
+                        "default": "ABC123"
+                    },
+                    {
+                        "name": "imageId",
+                        "in": "path",
+                        "description": "ID of image",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Product_Image"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/image/product/delete": {
+            "delete": {
+                "tags": [
+                    "Product-Images (Admin & Seller)"
+                ],
+                "summary": "Delete the specified Product Image in storage",
+                "description": "Delete Product Image ",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "User Auth Token{ ABC123 }",
+                        "required": true,
+                        "type": "string",
+                        "default": "ABC123"
+                    },
+                    {
+                        "name": "image",
+                        "in": "formData",
+                        "description": "URL of image",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Product_Image"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/edit/{productId}": {
+            "put": {
+                "tags": [
+                    "Admin-Product"
+                ],
+                "summary": "Update the specified Product in storage",
+                "description": "Update Product",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "User Auth Token{ ABC123 }",
+                        "required": true,
+                        "type": "string",
+                        "default": "ABC123"
+                    },
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "description": "id of Product",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Product that should be updated",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Edit-Product"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Product"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/edit/sku/{CatalogSkuId}": {
+            "put": {
+                "tags": [
+                    "Admin-Product"
+                ],
+                "summary": "Update the specified Sku in storage by Admin",
+                "description": "Update Sku by Admin",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "User Auth Token{ ABC123 }",
+                        "required": true,
+                        "type": "string",
+                        "default": "ABC123"
+                    },
+                    {
+                        "name": "productId",
+                        "in": "query",
+                        "description": "id of Product",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "productColorId",
+                        "in": "query",
+                        "description": "id of Product Color",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "CatalogSkuId",
+                        "in": "path",
+                        "description": "id of Catalog Sku Id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Product that should be updated",
+                        "required": false,
+                        "schema": {
+                            "$ref": "#/definitions/Edit-Admin-Sku"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "$ref": "#/definitions/Edit-Admin-Sku"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/delete/{productId}": {
+            "delete": {
+                "tags": [
+                    "Admin-Product"
+                ],
+                "summary": "Remove the specified Product from storage",
+                "description": "Delete Product",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "User Auth Token{ ABC123 }",
+                        "required": true,
+                        "type": "string",
+                        "default": "ABC123"
+                    },
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "description": "id of Product",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/user-product/seller/getAdminProducts": {
+            "get": {
+                "tags": [
+                    "Seller-Product"
+                ],
+                "summary": "Get a listing of all the Products for Seller.",
+                "description": "Get all Products for Seller",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "User Auth Token{ ABC123 }",
+                        "required": true,
+                        "type": "string",
+                        "default": "ABC123"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Page records limit",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Product"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/user-product/seller/getOwnProducts": {
+            "get": {
+                "tags": [
+                    "Seller-Product"
+                ],
+                "summary": "Get a listing of all the Products for Seller.",
+                "description": "Get all Products for Seller. Will fetch all products of currect logged seller if no query provided",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "User Auth Token{ ABC123 }",
+                        "required": true,
+                        "type": "string",
+                        "default": "ABC123"
+                    },
+                    {
+                        "name": "store",
+                        "in": "query",
+                        "description": "ID of Store",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "seller",
+                        "in": "query",
+                        "description": "ID of Seller",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Page records limit",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Product"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/user-product/seller/get/{productId}": {
+            "get": {
+                "tags": [
+                    "Seller-Product"
+                ],
+                "summary": "Get a listing of one Product for Seller.",
+                "description": "Get one Product for Seller. Will fetch aone products of currect logged seller if no query provided",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "User Auth Token{ ABC123 }",
+                        "required": true,
+                        "type": "string",
+                        "default": "ABC123"
+                    },
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "description": "ID of Product",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Page records limit",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Add-Seller-Product"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "/user-product/seller/getByCategory/{categoryId}": {
+            "get": {
+                "tags": [
+                    "Seller-Product"
+                ],
+                "summary": "Get one Product by Category ID.",
+                "description": "Get one Product by Category ID",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "User Auth Token{ ABC123 }",
+                        "required": true,
+                        "type": "string",
+                        "default": "ABC123"
+                    },
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "description": "id of Category",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "store",
+                        "in": "query",
+                        "description": "ID of Store",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "seller",
+                        "in": "query",
+                        "description": "ID of Seller",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Page records limit",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation",
+                        "schema": {
+                            "properties": {
+                                "success": {
+                                    "type": "boolean"
+                                },
+                                "data": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Product"
+                                    }
+                                },
+                                "message": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "definitions": {
+            "Register": {
+                "required": [
+                    "userName",
+                    "email",
+                    "password",
+                    "role"
+                ],
+                "properties": {
+                    "userName": {
+                        "description": "userName",
+                        "type": "string"
+                    },
+                    "email": {
+                        "description": "User Email",
+                        "type": "string"
+                    },
+                    "password": {
+                        "description": "Password",
+                        "type": "string"
+                    },
+                    "phoneNo": {
+                        "description": "User Phone Number",
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "role": {
+                        "description": "Super Admin = 1, Admin = 2, Seller = 3, Buyer = 4",
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            },
+            "VerifyEmail": {
+                "required": [
+                    "email",
+                    "token"
+                ],
+                "properties": {
+                    "email": {
+                        "description": "User Email address",
+                        "type": "string"
+                    },
+                    "token": {
+                        "description": "Token recieved in email",
+                        "type": "string"
+                    }
+                }
+            },
+            "Login": {
+                "required": [
+                    "email",
+                    "password",
+                    "role",
+                    "platform",
+                    "gcm_id"
+                ],
+                "properties": {
+                    "email": {
+                        "description": "User Email",
+                        "type": "string"
+                    },
+                    "role": {
+                        "description": "role of user [1=>SU,2=>Admin,3=>Seller,4=>Buyer]",
+                        "type": "number"
+                    },
+                    "password": {
+                        "description": "password",
+                        "type": "string"
+                    },
+                    "platform": {
+                        "description": "platform: ios,android,web",
+                        "type": "string"
+                    },
+                    "gcm_id": {
+                        "description": "gcm_id",
+                        "type": "string"
+                    }
+                }
+            },
+            "Profile_Image": {
+                "required": [
+                    "image"
+                ],
+                "properties": {
+                    "image": {
+                        "description": "User profile image",
+                        "type": "file"
+                    }
+                }
+            },
+            "Role": {
+                "required": [
+                    "name",
+                    "description"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "id",
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            },
+            "Password": {
+                "required": [
+                    "password",
+                    "confirm_password"
+                ],
+                "properties": {
+                    "password": {
+                        "description": "password",
+                        "type": "string"
+                    },
+                    "confirm_password": {
+                        "description": "confirm_password",
+                        "type": "string"
+                    }
+                }
+            },
+            "Product": {
+                "required": [
+                    "catalog_product_id",
+                    "product_name",
+                    "description",
+                    "product_description_bullet1",
+                    "product_description_bullet2",
+                    "product_description_bullet3",
+                    "product_description_bullet4",
+                    "product_description_bullet5",
+                    "custom_cat",
+                    "images",
+                    "category",
+                    "product_colors"
+                ],
+                "properties": {
+                    "catalog_product_id": {
+                        "description": "catalog product ID",
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "product_name": {
+                        "description": "product name",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "description",
+                        "type": "string"
+                    },
+                    "product_description_bullet1": {
+                        "description": "product description bullet 1",
+                        "type": "string"
+                    },
+                    "product_description_bullet2": {
+                        "description": "product description bullet 2",
+                        "type": "string"
+                    },
+                    "product_description_bullet3": {
+                        "description": "product description bullet 3",
+                        "type": "string"
+                    },
+                    "product_description_bullet4": {
+                        "description": "product description bullet 4",
+                        "type": "string"
+                    },
+                    "product_description_bullet5": {
+                        "description": "product description bullet 5",
+                        "type": "string"
+                    },
+                    "custom_cat": {
+                        "description": "Custom cat product",
+                        "default": "true"
+                    },
+                    "category": {
+                        "description": "category",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "product_colors": {
+                        "description": "product colors",
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "color": {
+                                    "description": "color",
+                                    "type": "string"
+                                },
+                                "hex": {
+                                    "description": "hex",
+                                    "type": "string"
+                                },
+                                "front_image": {
+                                    "description": "front image",
+                                    "type": "string"
+                                },
+                                "back_image": {
+                                    "description": "back image",
+                                    "type": "string"
+                                },
+                                "images": {
+                                    "description": "Ids of custom images uploaded",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "product_color_id": {
+                                    "description": "product color id",
+                                    "type": "integer",
+                                    "format": "int32"
+                                },
+                                "skus": {
+                                    "description": "skus",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "cost": {
+                                                "description": "cost",
+                                                "type": "integer",
+                                                "format": "int32"
+                                            },
+                                            "catalog_sku_id": {
+                                                "description": "catalog sku ID",
+                                                "type": "integer",
+                                                "format": "int32"
+                                            },
+                                            "mrsp": {
+                                                "description": "mrsp number",
+                                                "type": "integer",
+                                                "format": "int32"
+                                            },
+                                            "size": {
+                                                "description": "size",
+                                                "type": "string"
+                                            },
+                                            "baseCost": {
+                                                "description": "base cost",
+                                                "type": "integer",
+                                                "format": "int32"
+                                            },
+                                            "in_stock": {
+                                                "description": "in stock",
+                                                "type": "integer",
+                                                "format": "int32"
+                                            },
+                                            "stock": {
+                                                "description": "stock",
+                                                "type": "integer",
+                                                "format": "int32"
+                                            },
+                                            "startDate": {
+                                                "description": "start date",
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "Edit-Product": {
+                "required": [
+                    "catalog_product_id",
+                    "product_name",
+                    "description",
+                    "product_description_bullet1",
+                    "product_description_bullet2",
+                    "product_description_bullet3",
+                    "product_description_bullet4",
+                    "product_description_bullet5",
+                    "custom_cat",
+                    "category",
+                    "images",
+                    "product_colors"
+                ],
+                "properties": {
+                    "catalog_product_id": {
+                        "description": "catalog product ID",
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "product_name": {
+                        "description": "product name",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "description",
+                        "type": "string"
+                    },
+                    "product_description_bullet1": {
+                        "description": "product description bullet 1",
+                        "type": "string"
+                    },
+                    "product_description_bullet2": {
+                        "description": "product description bullet 2",
+                        "type": "string"
+                    },
+                    "product_description_bullet3": {
+                        "description": "product description bullet 3",
+                        "type": "string"
+                    },
+                    "product_description_bullet4": {
+                        "description": "product description bullet 4",
+                        "type": "string"
+                    },
+                    "product_description_bullet5": {
+                        "description": "product description bullet 5",
+                        "type": "string"
+                    },
+                    "custom_cat": {
+                        "description": "Custom cat product",
+                        "default": "true"
+                    },
+                    "category": {
+                        "description": "category",
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "product_colors": {
+                        "description": "product colors",
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "_id": {
+                                    "description": "_id",
+                                    "type": "string"
+                                },
+                                "color": {
+                                    "description": "color",
+                                    "type": "string"
+                                },
+                                "hex": {
+                                    "description": "hex",
+                                    "type": "string"
+                                },
+                                "front_image": {
+                                    "description": "front image",
+                                    "type": "string"
+                                },
+                                "back_image": {
+                                    "description": "back image",
+                                    "type": "string"
+                                },
+                                "images": {
+                                    "description": "images",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "product_color_id": {
+                                    "description": "product color id",
+                                    "type": "integer",
+                                    "format": "int32"
+                                },
+                                "skus": {
+                                    "description": "skus",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "cost": {
+                                                "description": "cost",
+                                                "type": "integer",
+                                                "format": "int32"
+                                            },
+                                            "catalog_sku_id": {
+                                                "description": "catalog sku ID",
+                                                "type": "integer",
+                                                "format": "int32"
+                                            },
+                                            "mrsp": {
+                                                "description": "mrsp number",
+                                                "type": "integer",
+                                                "format": "int32"
+                                            },
+                                            "_id": {
+                                                "description": "_id",
+                                                "type": "string"
+                                            },
+                                            "size": {
+                                                "description": "size",
+                                                "type": "string"
+                                            },
+                                            "baseCost": {
+                                                "description": "base cost",
+                                                "type": "integer",
+                                                "format": "int32"
+                                            },
+                                            "in_stock": {
+                                                "description": "in stock",
+                                                "type": "integer",
+                                                "format": "int32"
+                                            },
+                                            "stock": {
+                                                "description": "stock",
+                                                "type": "integer",
+                                                "format": "int32"
+                                            },
+                                            "startDate": {
+                                                "description": "start date",
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "Add-Seller-Product": {
+                "required": [
+                    "catalog_product_id",
+                    "product_name",
+                    "description",
+                    "product_description_bullet1",
+                    "product_description_bullet2",
+                    "product_description_bullet3",
+                    "product_description_bullet4",
+                    "product_description_bullet5",
+                    "custom_cat",
+                    "storeId",
+                    "category",
+                    "history",
+                    "product_colors"
+                ],
+                "properties": {
+                    "products": {
+                        "description": "products",
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "catalog_product_id": {
+                                    "description": "catalog product ID",
+                                    "type": "integer",
+                                    "format": "int32"
+                                },
+                                "product_name": {
+                                    "description": "product name",
+                                    "type": "string"
+                                },
+                                "description": {
+                                    "description": "description",
+                                    "type": "string"
+                                },
+                                "product_description_bullet1": {
+                                    "description": "product description bullet 1",
+                                    "type": "string"
+                                },
+                                "product_description_bullet2": {
+                                    "description": "product description bullet 2",
+                                    "type": "string"
+                                },
+                                "product_description_bullet3": {
+                                    "description": "product description bullet 3",
+                                    "type": "string"
+                                },
+                                "product_description_bullet4": {
+                                    "description": "product description bullet 4",
+                                    "type": "string"
+                                },
+                                "product_description_bullet5": {
+                                    "description": "product description bullet 5",
+                                    "type": "string"
+                                },
+                                "storeId": {
+                                    "description": "store Id of user",
+                                    "type": "string"
+                                },
+                                "custom_cat": {
+                                    "description": "Custom cat product",
+                                    "default": "true"
+                                },
+                                "history": {
+                                    "description": "history",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "category": {
+                                    "description": "category",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "product_colors": {
+                                    "description": "product colors",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "color": {
+                                                "description": "color",
+                                                "type": "string"
+                                            },
+                                            "hex": {
+                                                "description": "hex",
+                                                "type": "string"
+                                            },
+                                            "front_image": {
+                                                "description": "front image",
+                                                "type": "string"
+                                            },
+                                            "back_image": {
+                                                "description": "back image",
+                                                "type": "string"
+                                            },
+                                            "images": {
+                                                "description": "images",
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "product_color_id": {
+                                                "description": "product color id",
+                                                "type": "integer",
+                                                "format": "int32"
+                                            },
+                                            "skus": {
+                                                "description": "skus",
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "cost": {
+                                                            "description": "cost",
+                                                            "type": "integer",
+                                                            "format": "int32"
+                                                        },
+                                                        "catalog_sku_id": {
+                                                            "description": "catalog sku ID",
+                                                            "type": "integer",
+                                                            "format": "int32"
+                                                        },
+                                                        "mrsp": {
+                                                            "description": "mrsp number",
+                                                            "type": "integer",
+                                                            "format": "int32"
+                                                        },
+                                                        "size": {
+                                                            "description": "size",
+                                                            "type": "string"
+                                                        },
+                                                        "baseCost": {
+                                                            "description": "base cost",
+                                                            "type": "integer",
+                                                            "format": "int32"
+                                                        },
+                                                        "in_stock": {
+                                                            "description": "in stock",
+                                                            "type": "integer",
+                                                            "format": "int32"
+                                                        },
+                                                        "stock": {
+                                                            "description": "stock",
+                                                            "type": "integer",
+                                                            "format": "int32"
+                                                        },
+                                                        "startDate": {
+                                                            "description": "start date",
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "Edit-Seller-Product": {
+                "required": [
+                    "catalog_product_id",
+                    "product_name",
+                    "description",
+                    "product_colors"
+                ],
+                "properties": {
+                    "product_name": {
+                        "description": "product name",
+                        "type": "string"
+                    },
+                    "product_description": {
+                        "description": "description",
+                        "type": "string"
+                    },
+                    "product_colors": {
+                        "description": "product colors",
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "front_image": {
+                                    "description": "front image",
+                                    "type": "string"
+                                },
+                                "back_image": {
+                                    "description": "back image",
+                                    "type": "string"
+                                },
+                                "images": {
+                                    "description": "images",
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "product_color_id": {
+                                    "description": "product color id",
+                                    "type": "integer",
+                                    "format": "int32"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
