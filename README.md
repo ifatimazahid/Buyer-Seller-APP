@@ -15,5 +15,6 @@ Note the file structure below (which I'm applying to my project), as I have not 
 4. controllers/Product.js: Contains all the API's for Seller & Buyer Product.
 5. controllers/Validate.js: Contains validations for Add / Edit Admin & Seller Products.
 6. controllers/services/product.service.js: Contains service for Product (to be used within API's).
+7. swagger.json: API Documentation is achieved via Swagger.
 
 Thank you.
